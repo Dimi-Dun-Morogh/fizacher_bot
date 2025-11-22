@@ -51,7 +51,10 @@ export default class Db {
         },
         { merge: true }
       );
-      return true;
+
+      const docSnap = await ref.get();
+
+      return docSnap.data();
     } catch (error) {
       console.error("Ошибка добавления|update пользователя:", error);
       return false;
