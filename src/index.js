@@ -5,8 +5,14 @@ import "dotenv/config";
 const app = express();
 app.use(express.json());
 
+const isDev = process.argv.includes("-dev");
 
-// Your public HTTPS URL (for example from Render, Vercel, Fly.io, Cloudflare)
+if (isDev) {
+  console.log("Running in development mode");
+ bot.launch();
+} else {
+  console.log("Running in production mode");
+  // Your public HTTPS URL (for example from Render, Vercel, Fly.io, Cloudflare)
 const WEBHOOK_URL = process.env.WEBHOOK_URL + "/webhook/" + bot.secretPathComponent();
 
 // Register webhook with Telegram
@@ -27,9 +33,8 @@ app.listen(PORT, () => {
   console.log("Webhook URL:", WEBHOOK_URL);
 });
 
+}
 
-
-// bot.launch();
 
 
 

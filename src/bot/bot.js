@@ -2,7 +2,13 @@ import { Telegraf } from "telegraf";
 import "dotenv/config";
 import { fizCmdHandler,fizMyStatCmdHandler, fizChatStatCmdHandler, helpHandler } from "./handlers.js";
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
+// Проверяем аргументы
+const isDev = process.argv.includes("-dev");
+
+// Выбираем токен
+const token = isDev ? process.env.DEV_BOT_TOKEN : process.env.BOT_TOKEN;
+
+const bot = new Telegraf(token);
 bot.start((ctx) => ctx.reply("Welcome"));
 
 
