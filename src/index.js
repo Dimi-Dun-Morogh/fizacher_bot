@@ -1,28 +1,35 @@
 import bot from "./bot/bot.js";
-import Db from "./db/index.js";
-import { defineAlias } from "./types/constants.js";
+import express from "express";
+import "dotenv/config";
 
-const db = new Db();
-
-//db.getChatMembers(2).then((d) => console.log(d));
-
-// db.addExercise(
-//   123,
-//   {
-//     id: 4,
-//     tg_username: "вв444tester",
-//     tg_nickname: "вв444Edest Userer",
-//   },
-//   "pull_ups",
-//   1
-// );
+const app = express();
+app.use(express.json());
 
 
-// db.createOrUpdateChat(1,{
-//     chat_name:"Test Chat EDITED",
-// }).then((res)=>console.log("Chat created/updated:",res));
+// Your public HTTPS URL (for example from Render, Vercel, Fly.io, Cloudflare)
+const WEBHOOK_URL = process.env.WEBHOOK_URL + "/webhook/" + bot.secretPathComponent();
 
-bot.launch();
+// Register webhook with Telegram
+await bot.telegram.setWebhook(WEBHOOK_URL);
+
+// Pass updates to Telegraf
+app.use(bot.webhookCallback("/webhook/" + bot.secretPathComponent()));
+
+// (Optional) root route
+app.get("/", (req, res) => {
+  res.send("Bot is running via webhook!");
+});
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log("Server started on port", PORT);
+  console.log("Webhook URL:", WEBHOOK_URL);
+});
+
+
+
+// bot.launch();
 
 
 

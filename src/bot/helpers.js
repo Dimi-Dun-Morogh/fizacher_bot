@@ -31,3 +31,36 @@ export function numberToEmoji(number) {
 
     return chars.map(c => emojiMap[c] || c).join('');
 }
+
+
+export function formatTimestamp(ts) {
+    if (!ts || typeof ts.toDate !== "function") return "—";
+
+    return ts.toDate().toLocaleString("ru-RU", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+    });
+}
+
+export function getPlayerRank(players, userId) {
+    // Копируем массив чтобы не мутировать исходный
+    const sorted = [...players].sort((a, b) => b.exp - a.exp);
+
+    // Ищем индекс игрока
+    const index = sorted.findIndex(p => p.id === userId);
+
+    // Если игрока нет
+    if (index === -1) return null;
+
+    // Место = индекс + 1
+    return index + 1;
+}
+
+export function sumOfChatExp(members) {
+    return members.reduce((sum, member) => sum + (member.exp || 0), 0);
+}
+
