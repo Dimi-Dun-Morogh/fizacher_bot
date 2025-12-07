@@ -1,3 +1,4 @@
+import { xpRates } from "../types/constants.js";
 import firestoreDb from "./fireStoreInit.js";
 import { FieldValue } from "firebase-admin/firestore";
 
@@ -143,12 +144,7 @@ export default class Db {
   async addExercise(chatId, chatMember, field, count) {
     try {
       
-      const xpRates = {
-        push_ups: 1,
-        pull_ups: 1.5,
-        sit_ups: 1.2,
-        crunches: 0.5,
-      };
+      
 
 
       return this.addOrUpdateUserInChat(chatId,{

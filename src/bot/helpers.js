@@ -1,14 +1,20 @@
 export function calculateLevel(xp_total) {
     let level = 0;
     let next_level_xp = 100;
+    let total_to_next = 100;
 
     while (xp_total >= next_level_xp) {
         xp_total -= next_level_xp;
         level += 1;
-        next_level_xp *= 2; // каждый следующий уровень в 2 раза дороже
+        next_level_xp *= 2;
+        total_to_next += next_level_xp;
     }
-    console.log('calculateLevel:', { level, xp_total, next_level_xp });
-    return { level, next_level_xp};
+//   console.log(total_to_next-xp_total)
+    return { 
+        level, 
+        next_level_xp,       // цена СЛЕДУЮЩЕГО апа
+        total_to_next        // общий XP до следующего уровня
+    };
 }
 
 export function numberToEmoji(number) {

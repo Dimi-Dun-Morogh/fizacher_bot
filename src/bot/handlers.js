@@ -94,8 +94,8 @@ export async function fizCmdHandler(ctx) {
 
     const exerciseName = EXERCISE_DISPLAY_NAMES[definedExercise];
 
-    const { level, next_level_xp } = calculateLevel(res.exp);
-
+    const { level, next_level_xp,total_to_next } = calculateLevel(res.exp);
+    console.log(next_level_xp, res.exp);
     const resultString = `
 <blockquote><b>💪 + ${count} ${exerciseName} добавлено!</b></blockquote>
 ────────────────────────────────────────────
@@ -108,7 +108,7 @@ export async function fizCmdHandler(ctx) {
 </pre>  
 ────────────────────────────────────────────
 <blockquote><b>💎 Ваш уровень: ${numberToEmoji(level)}</b>
-<b>XP до следующего уровня:</b> ${next_level_xp - res.exp}</blockquote>
+<b>XP до следующего уровня:</b> ${total_to_next - res.exp}</blockquote>
 
 Продолжай в том же духе!
 /help - список команд /fizstatchat — статистика всего чата /fizmystat — ваша статистика
