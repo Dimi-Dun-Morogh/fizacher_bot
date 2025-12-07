@@ -133,7 +133,7 @@ export async function fizMyStatCmdHandler(ctx) {
       "Ошибка при получении вашей статистики. Попробуй ещё раз. Возможно, вы ещё не выполняли упражнения в этом чате."
     );
   }
-  const { level, next_level_xp } = calculateLevel(res.exp);
+  const { level, next_level_xp,total_to_next } = calculateLevel(res.exp);
   const resultString = `
 <b>📊 Ваша статистика в ${ctx.chat.title}:</b>
 ────────────────────────────────────────────
@@ -145,7 +145,7 @@ export async function fizMyStatCmdHandler(ctx) {
 </pre>
 ────────────────────────────────────────────
 <blockquote>⚡ Всего XP: ${res.exp} <b>💎 Ваш уровень: ${numberToEmoji(level)}</b>
-<b>XP до следующего уровня:</b> ${next_level_xp - res.exp}
+<b>XP до следующего уровня:</b> ${total_to_next - res.exp}
 </blockquote>
 📅Профиль создан - ${formatTimestamp(res.joined_at)}
 📅Последнее обновление - ${formatTimestamp(res.last_update)}
